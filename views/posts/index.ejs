@@ -1,0 +1,9 @@
+<% layout("/layouts/boilerplate")%>
+
+<div>
+    <ul>
+        <% for(let post of posts) {%>
+            <li><a href="/posts/<%=post.username%>"><%=post.username%></a></li>
+        <% }%>
+    </ul>
+</div>

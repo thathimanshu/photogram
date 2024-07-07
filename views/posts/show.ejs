@@ -1,0 +1,10 @@
+<% layout("/layouts/boilerplate")%>
+
+<img style="height: 50vh; width: 50vh;" src="<%=post.imageUrl%>">
+<p>username : <%=post.username %></p>
+<p>caption : <%=post.caption %></p>
+<p>createdAt : <%=post.createdAt %></p>
+
+<form method="post" action="/posts/<%=post._id%>?_method=DELETE">
+    <button>DELETE</button>
+</form>
