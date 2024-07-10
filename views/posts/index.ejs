@@ -1,11 +1,26 @@
 <% layout("/layouts/boilerplate")%>
-
-<div>
-    <ul>
+<style>
+    .post{
+        border: 4px solid black;
+        height: 250px;
+        width: 250px;
+        margin-top: 10px;
+    }
+    img{
+        height: 90px;
+        width: auto;
+    }
+</style>
+<div class="allposts offset-4">
         <% for(let post of posts) {%>
-            <li><a href="/posts/<%=post.username%>"><%=post.username%></a></li>
-            <li><a href="/posts/<%=post.username%>"><%=post.username%></a></li>
+            <a href="/posts/<%=post._id%>">
+                <div class="post">
+                    <img src="<%=post.imageUrl%>">
+                    <p><%=post.username%></p>
+                      <p><%=post.caption%></p>
+                      <p><%=Date.now()-post.createdAt%></p>
+                </div>
+            </a>
 
         <% }%>
-    </ul>
 </div>

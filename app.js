@@ -63,18 +63,24 @@ app.post("/posts",wrapAsync(async(req,res)=>{
     await newPost.save();
     res.redirect("/posts");
 }))
-app.get("/posts/:username",wrapAsync(async (req,res)=>{
-    let {username} = req.params;
-    const post = await Posts.findOne({username});
+
+//show route
+app.get("/posts/:id",wrapAsync(async (req,res)=>{
+    let {id} = req.params;
+    const post = await Posts.findById(id);
     if(post==null) throw new ExpressError(404,"User not found");
     res.render("./posts/show.ejs",{post});
 }))
-app.get("/posts/:username/edit",wrapAsync(async (req,res)=>{
-    let {username} = req.params;
-    let post = await Posts.findOne({username:username});
-    if(post==null) throw new ExpressError(404,"User not found");
+
+//edit route
+app.get("/posts/:id/edit",wrapAsync(async (req,res)=>{
+    let {id} = req.params;
+    let post = await Posts.findById(id);
+    if(post==null) throw new ExpressError(404,"Post not found");
     res.render("./posts/edit.ejs",{post});
 }))
+
+//delete route
 app.delete("/posts/:id",wrapAsync(async (req,res)=>{
     let {id} = req.params;
     await Posts.findByIdAndDelete(id);

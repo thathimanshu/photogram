@@ -5,6 +5,7 @@
 <p>caption : <%=post.caption %></p>
 <p>createdAt : <%=post.createdAt %></p>
 
+<a href="/posts/<%=post._id%>/edit"><button>Edit</button></a>
 <form method="post" action="/posts/<%=post._id%>?_method=DELETE">
     <button>DELETE</button>
 </form>
