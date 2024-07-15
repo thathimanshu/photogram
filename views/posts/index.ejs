@@ -1,16 +1,12 @@
 <% layout("/layouts/boilerplate")%>
 <style>
-    .post{
-        border: 4px solid black;
-        height: 250px;
-        width: 250px;
+    .card{
+        border: 1px solid rgba(0, 0, 0, 0.25) !important;
+        height: 500px;
+        width: 500px;
         margin-top: 10px;
+        
     }
-    img{
-        height: 90px;
-        width: auto;
-    }
-
     .pp{
         height: 30px;
         width: 30px;
@@ -20,48 +16,51 @@
     .card-top{
         display: flex;
         justify-content: space-between;
-        padding: 2px 4px 2px 4px;
-    }
-
-    .card{
-        margin-top: 20px;
+        align-items: center;
+        padding: 0.6rem 0.6rem;
     }
 
     .mid-icons{
         display: flex;
         justify-content: space-between;
     }
+    .username{
+        text-decoration: none;
+        color: black;
+    }
+    .img-container{
+        height: 350px;
+        width: 500px;
+        
+    }
+    .post-img{
+        height: 100%;
+        width: 100%;
+        object-fit:cover;
+        position: relative;
+    }
+    
 </style>
-<div class="allposts offset-4">
+<div class="allposts offset-3">
         <% for(let post of posts) {%>
-            <a href="/posts/<%=post._id%>">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-top">
-                        <div>
-                            <img  class="pp card-img-top" src="<%=post.imageUrl%>"  >
-                             profile name
-                        </div>
-                                <i class="fa-solid fa-ellipsis-vertical"></i>
-                            
-                        
-                        
-                        
-                      </div>
-                     <img src="<%=post.imageUrl%>" class="card-img-top" alt="...">
-                     <div class="card">
-                            <div class="mid-icons">
-                                <i class="fa-regular fa-heart"></i>
-                                <i class="fa-regular fa-comment"></i>
-                            </div>   
-                              <i class="fa-regular fa-bookmark"></i> 
-                    <div class="card-body">
-                      <p class="card-title">Card title</p>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="#" class="btn btn-primary">Go somewhere</a>
+            <div class="card">
+                <div class="card-top">
+                    <div>
+                        <img class="pp card-img-top" src="<%=post.imageUrl%>">
+                        <a class="username" href="/<%=post.username%>"><%=post.username%></a>
                     </div>
-                  </div>
-                
-            </a>
-
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                </div>
+                <div class="img-container">
+                    <img class="post-img" src="<%=post.imageUrl%>">
+                </div>
+                <div class="card-desc1">
+                    <div class="mid-icons">
+                        <i class="fa-regular fa-heart"></i>
+                        <i class="fa-regular fa-comment"></i>
+                    </div>   
+                    <i class="fa-regular fa-bookmark"></i> 
+                </div>
+            </div>
         <% }%>
 </div>
