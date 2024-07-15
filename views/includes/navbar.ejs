@@ -1,0 +1,80 @@
+<style>
+    .nav-items{
+        border-bottom: 1px solid rgba(0, 0, 0,0.25);
+        display: flex;
+        justify-content: space-between;
+        align-items:center;
+        padding: 0 20%;
+        height: 60px;
+        width: 100%;
+        position:fixed;
+        top: 0;
+        background-color: white;
+    }
+    .navbarspace{
+        height: 60px;
+        width: 100vw;
+    }
+    .dp{
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+    }
+    .icons{
+        display: flex;
+        align-items: center;
+    }
+    .icons i{
+        font-size: 22px;
+        margin-right: 1.25rem;
+    }
+    .logo{
+        font-size: 24px;
+        font-weight: 600;
+        text-decoration: none;
+        color: #252525;
+        font-family: "Playwrite CL", cursive;
+        font-optical-sizing: auto;
+    }
+    .search-box {
+        position: relative;
+        margin-right: 1.25rem;
+    }
+    .search-box input {
+        border-radius: 4px;
+        width: 100%;
+        padding: 5px 5px 5px 32px;
+        box-sizing: border-box;
+        border: none;
+        background-color: #efefef;
+    }
+
+    .search-box .fa-search {
+        position: absolute;
+        top: 50%;
+        left: 8px;
+        transform: translateY(-50%);
+        color: #999;
+    }
+</style>
+<nav>
+    <div class="nav-items">
+        <a class="logo" href="/posts">
+            Photogram
+        </a>
+    
+        <div class="icons">
+            <div class="search-box">
+                <i style="font-size: 16px;" class="fa fa-search"></i>
+                <input type="text" id="search" name="search" placeholder="Search">
+            </div>
+            <i class="fa-solid fa-house"></i>
+            <i class="fa-regular fa-message"></i>
+            <i class="fa-regular fa-square-plus"></i>
+            <i class="fa-regular fa-compass"></i>
+            <i class="fa-regular fa-heart"></i>
+            <img class="dp" src="https://cdn.mos.cms.futurecdn.net/39CUYMP8vJqHAYGVzUghBX-1200-80.jpg">
+        </div>
+    </div>
+    <div class="navbarspace"></div>
+</nav>

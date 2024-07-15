@@ -7,8 +7,17 @@ const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const ExpressError = require('./utils/ExpressError');
 const wrapAsync = require('./utils/wrapAsync');
-const postSchema = require('./schema.js');
+const {postSchema,commentSchema} = require('./schema.js');
 const Post = require('./models/post');
+const Comment = require('./models/comment');
+const postRouter = require('./routes/post');
+const commentRouter = require('./routes/comment');
+const userRouter = require('./routes/user');
+const session = require('express-session');
+const flash = require('connect-flash');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const User = require('./models/user.js');
 
 const mongoose_url= 'mongodb://127.0.0.1:27017/photogram';
 
@@ -22,74 +31,66 @@ app.engine('ejs',ejsMate);
 app.set("views",path.join(__dirname,"/views"));
 app.set("view engine","ejs");
 
+const sessionOption = {
+    secret:"a sercret code here",
+    resave:false,
+    saveUninitialized :true,
+    cookie:{
+        expires: Date.now() + 7*24*3600000,
+        maxAge:7*24*3600000,
+        httpOnly:true
+    }
+};
+
+app.use(session(sessionOption));
+app.use(flash());
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+
+app.use((req,res,next)=>{
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+});
 //mongodb connection
 (async function main(){
     await mongoose.connect(mongoose_url);
 })();
 
+app.get("/demouser",async (req,res)=>{
+    let fakeUser = new User({
+        username:"justice"
+    });
+
+    let newUser = await User.register(fakeUser,"vengeanceee");
+    res.send(newUser);
+});
+
 app.listen(8080,()=>{
     console.log("App is Listening on port 8080");
 });
 
-const validatePost = (req,res,next)=>{
-    let {error} = postSchema.validatePost(req.body);
-    if(error){
-        let errMsg = error.details.map((el)=>el.message).join(", ");
-        throw new ExpressError(400,errMsg);
-    } else{
-        next();
-    }
-}
 
 //root path
 app.get("/",(req,res)=>{
     res.send("I am gROOT");
 });
 
-//index route
-app.get("/posts",async (req,res)=>{
-    const allPosts = await Posts.find({});
-    res.render("./posts/index.ejs",{posts:allPosts});
-})
-
-//new route
-app.get("/posts/new",(req,res)=>{
-    res.render("./posts/new.ejs");
-})
-
-//create route
-app.post("/posts",wrapAsync(async(req,res)=>{
-    const newPost = new Post(req.body.post);
-    await newPost.save();
-    res.redirect("/posts");
-}))
-
-//show route
-app.get("/posts/:id",wrapAsync(async (req,res)=>{
-    let {id} = req.params;
-    const post = await Posts.findById(id);
-    if(post==null) throw new ExpressError(404,"User not found");
-    res.render("./posts/show.ejs",{post});
-}))
-
-//edit route
-app.get("/posts/:id/edit",wrapAsync(async (req,res)=>{
-    let {id} = req.params;
-    let post = await Posts.findById(id);
-    if(post==null) throw new ExpressError(404,"Post not found");
-    res.render("./posts/edit.ejs",{post});
-}))
-
-//delete route
-app.delete("/posts/:id",wrapAsync(async (req,res)=>{
-    let {id} = req.params;
-    await Posts.findByIdAndDelete(id);
-    res.redirect("/posts");
-}))
+app.use('/posts',postRouter);
+app.use('/posts/:id/comments',commentRouter);
+app.use('/',userRouter);
 
 app.all("*",(req,res,next)=>{
     next(new ExpressError(404,"Page Not Found"));
 })
+
+
 app.use((err,req,res,next)=>{
     let {statusCode=500,message="Something Went Wrong"} = err;
     res.status(statusCode).render("error.ejs",{err});
