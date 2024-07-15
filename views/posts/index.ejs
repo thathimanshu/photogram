@@ -1,5 +1,8 @@
 <% layout("/layouts/boilerplate")%>
 <style>
+    .main{
+        display: flex;
+    }
     .card{
         border: 1px solid rgba(0, 0, 0, 0.25) !important;
         height: 500px;
@@ -39,9 +42,16 @@
         object-fit:cover;
         position: relative;
     }
-    
+    .suggestions{
+        height: 250px;
+        width: 250px;
+        background-color: skyblue;
+        margin: 10px 0 0 20px;
+
+    }
 </style>
-<div class="allposts offset-3">
+<div class="main">
+    <div class="allposts offset-3">
         <% for(let post of posts) {%>
             <div class="card">
                 <div class="card-top">
@@ -63,4 +73,18 @@
                 </div>
             </div>
         <% }%>
+</div>
+
+<%# <div class="suggestions"> %>
+<%#     <div class="user-info"> %>
+<%#         <div class="pp"></div> %>
+<%#         <div class="name"></div> %>
+<%#         <div class="switch"></div> %>
+<%#     </div> %>
+<%#     <div class="suggetion-4u-bar"></div> %>
+<%#     <div class="sugg-list"> %>
+<%#         <p>put user-info wala pura div multiple times here</p> %>
+<%#     </div> %>
+<%# </div> %>
+
 </div>
