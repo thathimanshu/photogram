@@ -10,16 +10,57 @@
         height: 90px;
         width: auto;
     }
+
+    .pp{
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+    }
+
+    .card-top{
+        display: flex;
+        justify-content: space-between;
+        padding: 2px 4px 2px 4px;
+    }
+
+    .card{
+        margin-top: 20px;
+    }
+
+    .mid-icons{
+        display: flex;
+        justify-content: space-between;
+    }
 </style>
 <div class="allposts offset-4">
         <% for(let post of posts) {%>
             <a href="/posts/<%=post._id%>">
-                <div class="post">
-                    <img src="<%=post.imageUrl%>">
-                    <p><%=post.username%></p>
-                      <p><%=post.caption%></p>
-                      <p><%=Date.now()-post.createdAt%></p>
-                </div>
+                <div class="card" style="width: 18rem;">
+                    <div class="card-top">
+                        <div>
+                            <img  class="pp card-img-top" src="<%=post.imageUrl%>"  >
+                             profile name
+                        </div>
+                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                            
+                        
+                        
+                        
+                      </div>
+                     <img src="<%=post.imageUrl%>" class="card-img-top" alt="...">
+                     <div class="card">
+                            <div class="mid-icons">
+                                <i class="fa-regular fa-heart"></i>
+                                <i class="fa-regular fa-comment"></i>
+                            </div>   
+                              <i class="fa-regular fa-bookmark"></i> 
+                    <div class="card-body">
+                      <p class="card-title">Card title</p>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                  </div>
+                
             </a>
 
         <% }%>
