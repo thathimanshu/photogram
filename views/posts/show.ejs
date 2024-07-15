@@ -1,11 +1,45 @@
 <% layout("/layouts/boilerplate")%>
 
-<img style="height: 50vh; width: 50vh;" src="<%=post.imageUrl%>">
-<p>username : <%=post.username %></p>
-<p>caption : <%=post.caption %></p>
-<p>createdAt : <%=post.createdAt %></p>
+<div class="row">
+    <div class="col-4  offset-3">
 
-<a href="/posts/<%=post._id%>/edit"><button>Edit</button></a>
-<form method="post" action="/posts/<%=post._id%>?_method=DELETE">
-    <button>DELETE</button>
-</form>
+        <img style="height: 50vh; width: 50vh;" src="<%=post.imageUrl%>">
+    <p>username : <%=post.username %></p>
+    <p>caption : <%=post.caption %></p>
+    <p>createdAt : <%=post.createdAt %></p>
+
+    <a href="/posts/<%=post._id%>/edit"><button>Edit</button></a>
+    <form method="post" action="/posts/<%=post._id%>?_method=DELETE">
+        <button>DELETE</button>
+    </form>
+
+    <hr>
+        <% for(let comment of post.comments){ %>
+            <div class="commentts border border-primary px-2 py-2">
+                <p> <%=comment._id%></p>
+                <p> <%=comment.content %>  </p>
+                <p> <%=comment.author %>   </p>
+                <p> <%=comment.createdAt %></p>
+
+                <form method="post" action="/posts/<%=post._id%>/comments/<%=comment._id%>?_method=DELETE">
+                    <button class="btn btn-danger">delete</button>
+                </form>
+            </div>
+    
+        <% } %>
+    </div>
+
+
+    <hr>
+    <form 
+            action="/posts/<%=post._id%>/comments/"
+            method="POST"
+            class="mb-3 needs-validation"  >
+                <div class="mb-3 mt-3">
+                    <label class="form-label" for="content" >Comments</label>
+                    <input type="text"  id="content" name="comment[content]">
+                </div>
+                
+                <button class="btn btn-light">Submit</button>
+            </form>
+</div>
