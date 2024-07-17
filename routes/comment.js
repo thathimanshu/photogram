@@ -3,11 +3,11 @@ const router = express.Router({mergeParams:true});
 const wrapAsync = require('../utils/wrapAsync');
 const Post = require('../models/post');
 const Comment = require('../models/comment');
-const {validateComment} = require('../middleware.js');
+const {validateComment,isLoggedin} = require('../middleware.js');
 
 
 // create route
-router.post("/",validateComment,wrapAsync(async(req,res)=>{
+router.post("/",isLoggedin,validateComment,wrapAsync(async(req,res)=>{
     let post = await Post.findById(req.params.id);
     let newComment = new Comment(req.body.comment);
     if (!post.comments) {

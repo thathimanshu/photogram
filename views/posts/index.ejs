@@ -57,13 +57,13 @@
                 <div class="card-top">
                     <div>
                         <img class="pp card-img-top" src="<%=post.imageUrl%>">
-                        <a class="username" href="/<%=post.username%>"><%=post.username%></a>
+                        <a class="username" href="/u/<%=post.username%>"><%=post.username%></a>
                     </div>
                         <i class="fa-solid fa-ellipsis-vertical"></i>
                 </div>
-                <div class="img-container">
+                <a href="/posts/<%=post._id%>"><div class="img-container" >
                     <img class="post-img" src="<%=post.imageUrl%>">
-                </div>
+                </div></a>
                 <div class="card-desc1">
                     <div class="mid-icons">
                         <i class="fa-regular fa-heart"></i>

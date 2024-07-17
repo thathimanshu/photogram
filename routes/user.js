@@ -35,5 +35,19 @@ router.post('/login',passport.authenticate('local',{failureRedirect : '/login',f
     req.flash('success',"welcome back");
     res.redirect('/posts');
 }))
-
+router.get("/logout",(req,res)=>{
+    req.logout((err)=>{
+        if(err){
+            return next(err);
+        }
+        req.flash("success",'Logged Out!');
+        res.redirect('/posts');
+    })
+})
+router.get('/u/:username',wrapAsync(async(req,res)=>{
+    let {username} = req.params;
+    let user = await User.findOne({username:username});
+    console.log(user);
+    res.render('user/showProfile.ejs',{user});
+}))
 module.exports = router;
