@@ -1,11 +1,16 @@
 <style>
+  .succ{
+    background-color: rgb(19, 240, 155);
+  }
+  .err{
+    background-color: rgb(240, 67, 19);
+  }
     .flashh{
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         height: 50px;
         width: 300px;
-        background-color: rgb(19, 240, 155);
 
         position:fixed;
         top: 0;
@@ -73,7 +78,7 @@
 </style>
 
 <% if(success && success.length>0) { %>
-    <div class="flashh">
+    <div class="flashh succ">
         <div class="msg">
             <%=success%>
         </div>
@@ -82,7 +87,7 @@
 <% } %>
 
 <% if(error && error.length>0) { %>
-    <div class="flashh">
+    <div class="flashh err">
         <div class="msg">
             <%=error%>
         </div>

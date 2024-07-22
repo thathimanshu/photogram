@@ -15,6 +15,11 @@
         width: 30px;
         border-radius: 50%;
     }
+    .pp2{
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+    }
 
     .card-top{
         display: flex;
@@ -43,11 +48,35 @@
         position: relative;
     }
     .suggestions{
-        height: 250px;
-        width: 250px;
-        background-color: skyblue;
-        margin: 10px 0 0 20px;
-
+        position:absolute;
+        top: 75px;
+        right: 50px;
+        height: 70vh;
+        width: 300px;
+    }
+    .user-info,.user-info-left{
+        display: flex;
+        height: 50px;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 0.5rem 0 0.25rem;
+    }
+    .user-info-left{
+        justify-content: left;
+    }
+    .name{
+        margin-left: 0.7rem;
+    }
+    .suggetion-4u-bar{
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 0.5rem;
+    }
+    a{
+        text-decoration: none;
     }
 </style>
 <div class="main">
@@ -75,16 +104,30 @@
         <% }%>
 </div>
 
-<%# <div class="suggestions"> %>
-<%#     <div class="user-info"> %>
-<%#         <div class="pp"></div> %>
-<%#         <div class="name"></div> %>
-<%#         <div class="switch"></div> %>
-<%#     </div> %>
-<%#     <div class="suggetion-4u-bar"></div> %>
-<%#     <div class="sugg-list"> %>
-<%#         <p>put user-info wala pura div multiple times here</p> %>
-<%#     </div> %>
-<%# </div> %>
+<div class="suggestions">
+    <div class="user-info">
+        <div class="user-info-left">
+            <div class="pp2">
+                <img class="pp2" src="https://cdn.mos.cms.futurecdn.net/39CUYMP8vJqHAYGVzUghBX-1200-80.jpg">
+            </div>
+            <div class="name">invisible strings</div>
+        </div>
+        <div class="switch"><a href="/">switch</a></div>
+    </div>
+    <div class="suggetion-4u-bar" style=" font-size: 14px;"><span style="color: rgba(0, 0, 0, 0.5);">Suggested for you</span> <a>See All</a></div>
+    <div class="sugg-list">      
+        <% for(let i = 0;i<5;i++){ %>
+            <div class="user-info">
+                <div class="user-info-left">
+                    <div class="pp2">
+                        <img class="pp2" src="https://cdn.mos.cms.futurecdn.net/39CUYMP8vJqHAYGVzUghBX-1200-80.jpg">
+                    </div>
+                    <div class="name">invisible strings</div>
+                </div>
+                <div class="switch"><a href="/">follow</a></div>
+            </div>
+        <%}%>
+    </div>
+</div>
 
 </div>

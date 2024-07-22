@@ -13,11 +13,33 @@
   </head>
   <body>
     <%-include("../includes/navbar.ejs")%>
+    <div class="fullscreen">
+      <i class="fa-solid fa-xmark cross"></i>
+
+      <div class="addImgDiv">
+        <div class="topp">
+          <p>Create new Post</p>
+        </div>
+        <div class="restt">
+            <div class="imgvid">
+              <i class="fa-regular fa-image"></i>
+              <i class="fa-regular fa-file-video"></i>
+            </div>
+            <p class="mt-2 mb-2">Drag photos and videos</p>
+            <form method="GET" action="/posts/new" class="addImgForm">
+              <input class="form-control" type="rexr" name="image" title="">
+              <button class="btn btn-primary">Add</button>
+            </form>
+        </div>
+      </div>
+    </div>
     <div class="container-fluid">
       <%-include("../includes/flash.ejs")%>
       <%- body %>
     </div>
     <%-include("../includes/footer.ejs")%>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="/js/create.js"></script>
+
   </body>
 </html>

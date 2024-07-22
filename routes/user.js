@@ -47,7 +47,10 @@ router.get("/logout",(req,res)=>{
 router.get('/u/:username',wrapAsync(async(req,res)=>{
     let {username} = req.params;
     let user = await User.findOne({username:username});
-    console.log(user);
+    if(!user){
+        req.flash("error","User doesnt exist");
+        return res.redirect('/posts');
+    }
     res.render('user/showProfile.ejs',{user});
 }))
 module.exports = router;
