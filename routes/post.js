@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router({mergeParams:true});
 const wrapAsync = require('../utils/wrapAsync');
 const Post = require('../models/post');
-const {validatePost,isLoggedin} = require('../middleware.js');
+const {validatePost} = require('../middleware.js');
 const ExpressError = require('../utils/ExpressError');
 
 //index route
@@ -12,13 +12,15 @@ router.get("/",async (req,res)=>{
 })
 
 //new route
-router.get("/new",isLoggedin,(req,res)=>{
-    res.render("./posts/new.ejs");
+router.get("/new",(req,res)=>{
+    res.render("./posts/new.ejs",{imageUrl : req.query.imageUrl});
 })
 
 //create route
-router.post("/",isLoggedin,validatePost,wrapAsync(async(req,res)=>{
-    const newPost = new Post(req.body.post);
+router.post("/",validatePost,wrapAsync(async(req,res)=>{
+    let postData = req.body.post;
+    postData.username = req.user.username;
+    const newPost = new Post(postData);
     await newPost.save();
     req.flash('success','new Post created');
     res.redirect("/posts");
@@ -36,7 +38,7 @@ router.get("/:id",wrapAsync(async (req,res)=>{
 }))
 
 //edit route
-router.get("/:id/edit",isLoggedin,wrapAsync(async (req,res)=>{
+router.get("/:id/edit",wrapAsync(async (req,res)=>{
     let {id} = req.params;
     let post = await Post.findById(id);
     if(post==null){
@@ -47,7 +49,7 @@ router.get("/:id/edit",isLoggedin,wrapAsync(async (req,res)=>{
 }))
 
 //delete route
-router.delete("/:id",isLoggedin,wrapAsync(async (req,res)=>{
+router.delete("/:id",wrapAsync(async (req,res)=>{
     let {id} = req.params;
     await Post.findByIdAndDelete(id);
     req.flash('success',"post deleted");

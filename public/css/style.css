@@ -3,7 +3,9 @@ body{
     flex-direction: column;
     min-height: 100vh;
 }
-
+.container-fluid{
+    flex: 1;
+}
 .fullscreen{
     height: 100dvh;
     width: 100dvw;
@@ -54,4 +56,6 @@ body{
     padding-top: 4rem;
 }
 
-  
+a{
+    text-decoration: none;
+}

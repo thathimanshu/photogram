@@ -3,14 +3,14 @@ const router = express.Router();
 const User = require('../models/user.js');
 const wrapAsync = require('../utils/wrapAsync.js');
 const passport = require('passport');
-
+const {saveRedirectedUrl,isLoggedin} = require('../middleware.js');
 router.get("/signup",(req,res)=>{
     res.render("user/signup.ejs");
 })
 router.post('/signup',wrapAsync(async (req,res)=>{
     try{
-        let {username,password} = req.body;
-        let newUser = new User({username});
+        let {username,password,profilePicture} = req.body;
+        let newUser = new User({username,profilePicture});
 
         let registeredUser = await User.register(newUser,password);
         req.login(registeredUser,(err)=>{
@@ -18,8 +18,8 @@ router.post('/signup',wrapAsync(async (req,res)=>{
                 return next(err);
             }
             req.flash('success',"User registered successfully");
-            res.redirect('/posts');
-        })
+            return res.redirect('/posts');
+        });
         
     } catch(err){
         req.flash("error",err.message);
@@ -27,24 +27,29 @@ router.post('/signup',wrapAsync(async (req,res)=>{
     }
 }));
 
+
 router.get("/login",(req,res)=>{
     res.render('user/login.ejs')
 })
 
-router.post('/login',passport.authenticate('local',{failureRedirect : '/login',failureFlash:true}),wrapAsync(async (req,res)=>{
+router.post('/login',saveRedirectedUrl,passport.authenticate('local',{failureRedirect : '/login',failureFlash:true}),wrapAsync(async (req,res)=>{
     req.flash('success',"welcome back");
-    res.redirect('/posts');
+    let redirecturl = res.locals.redirectUrl || '/posts';
+    res.redirect(redirecturl);
 }))
-router.get("/logout",(req,res)=>{
+router.get("/logout",wrapAsync(async (req,res)=>{
     req.logout((err)=>{
         if(err){
             return next(err);
         }
         req.flash("success",'Logged Out!');
-        res.redirect('/posts');
+        res.redirect('/posts'); 
     })
+}))
+router.get('/accounts/edit',(req,res)=>{
+    res.render('user/edit.ejs');
 })
-router.get('/u/:username',wrapAsync(async(req,res)=>{
+router.get('/u/:username',isLoggedin,wrapAsync(async(req,res)=>{
     let {username} = req.params;
     let user = await User.findOne({username:username});
     if(!user){
