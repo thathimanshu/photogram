@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Comment = require('./comment');
+const { required } = require('joi');
 const postSchema = new Schema({
-    username:{
-        type:String,
+    user:{
+        type:Schema.Types.ObjectId,
+        ref:"User",
         required:true
     },
     imageUrl:{
@@ -13,7 +15,8 @@ const postSchema = new Schema({
         type:String
     },
     createdAt:{
-        type:Date
+        type:Date,
+        default:Date.now()
     },
     comments:[
         {

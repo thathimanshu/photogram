@@ -2,7 +2,7 @@
 <style>
 .post {
   height: 475px;
-  width: 800px;
+  width: 900px;
   margin: 20px auto;
   background-color: #fff;
   border: 1px solid #ddd;
@@ -35,21 +35,22 @@
 .post-section {
   display: flex;
   padding: 10px;
+  justify-content: space-between;
 }
 
 .image-container {
   position: relative;
-  width: 50%;
+  width: 55%;
 }
 
 .image-container img {
   height: 390px;
-  width: 390px;
+  width: 490px;
   object-fit: cover;
   border-radius: 10px;
 }
 .caption-container {
-  width: 50%;
+  width: 44%;
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -62,14 +63,16 @@
   border-radius: 50%;
   margin-bottom: 10px;
   margin-right: 1rem;
+  object-fit: cover;
+
 }
 .user-dta{
     display: flex;
 }
 
-textarea {
+.caption{
   width: 100%;
-  height: 80px;
+  height: 300px;
   border: none;
   resize: none;
   outline: none;
@@ -80,22 +83,22 @@ textarea {
 <form method="POST" action="/posts">
     <div class="post">
         <div class="header">
-        <span></span>
-        <p class="heading-post">Create new post</p>
-        <button class="share-btn">Share</button>
+          <span></span>
+          <p class="heading-post">Create new post</p>
+          <button class="share-btn">Share</button>
         </div>
         <div class="post-section">
-        <div class="image-container">
-            <img src=<%=imageUrl%>>
-            <input style="display: none;" type="text" name="post[imageUrl]" value=<%=imageUrl%>>
-        </div>
-        <div class="caption-container">
-            <div class="user-dta">
-                <img class="profile-pic" src =<%=currUser.profilePicture%>>
-                <p><%=currUser.username %></p>
-            </div>
-            <textarea name="post[caption]" placeholder="Write a caption..."></textarea>
-        </div>
+          <div class="image-container">
+              <img src=<%=imageUrl%>>
+              <input style="display: none;" type="text" name="post[imageUrl]" value=<%=imageUrl%>>
+          </div>
+          <div class="caption-container">
+              <div class="user-dta">
+                  <img class="profile-pic" src =<%=currUser.profilePicture%>>
+                  <p><%=currUser.username %></p>
+              </div>
+              <textarea class="caption" name="post[caption]" placeholder="Write a caption..."></textarea>
+          </div>
         </div>
     </div>
     

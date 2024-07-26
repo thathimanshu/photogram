@@ -5,11 +5,14 @@ const Post = require('../models/post');
 const {validatePost} = require('../middleware.js');
 const ExpressError = require('../utils/ExpressError');
 
-//index route
-router.get("/",async (req,res)=>{
-    const allPosts = await Post.find({});
-    res.render("./posts/index.ejs",{posts:allPosts});
-})
+// index route
+router.get("/", async (req, res) => {
+    const allPosts = await Post.find({})
+                                .sort({ createdAt: -1 })
+                                .populate('user','username profilePicture');
+    console.log(allPosts[0]);
+    res.render("./posts/index.ejs", { posts: allPosts });
+});
 
 //new route
 router.get("/new",(req,res)=>{
@@ -19,7 +22,7 @@ router.get("/new",(req,res)=>{
 //create route
 router.post("/",validatePost,wrapAsync(async(req,res)=>{
     let postData = req.body.post;
-    postData.username = req.user.username;
+    postData.user = req.user._id;
     const newPost = new Post(postData);
     await newPost.save();
     req.flash('success','new Post created');

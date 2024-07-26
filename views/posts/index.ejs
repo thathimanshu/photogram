@@ -14,11 +14,13 @@
         height: 30px;
         width: 30px;
         border-radius: 50%;
+        object-fit: cover;
     }
     .pp2{
         height: 40px;
         width: 40px;
         border-radius: 50%;
+        object-fit: cover;
     }
 
     .card-top{
@@ -91,8 +93,8 @@
             <div class="card">
                 <div class="card-top">
                     <div>
-                        <img class="pp card-img-top" src="<%=post.imageUrl%>">
-                        <a class="username" href="/u/<%=post.username%>"><%=post.username%></a>
+                        <img class="pp card-img-top" src="<%=post.user.profilePicture%>">
+                        <a class="username" href="/u/<%=post.user.username%>"><%=post.user.username%></a>
                     </div>
                         <i class="fa-solid fa-ellipsis-vertical"></i>
                 </div>
