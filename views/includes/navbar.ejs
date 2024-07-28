@@ -116,7 +116,7 @@
             <div>
                 <img class="dp profile-dp" src="<%=currUser.profilePicture%>">
                 <div class="user-option-list">
-                    <div class="user-option"><i class="fa-regular fa-user"></i>Profile</div>
+                    <a href="/u/<%=currUser.username%>" class="user-option"><i class="fa-regular fa-user"></i>Profile</a>
                     <div class="user-option"><i class="fa-regular fa-bookmark"></i>Saved</div>
                     <div class="user-option"><i class="fa-solid fa-gear"></i>Setting</div>
                     <a href="/logout" class="user-option mt-1" style="border-top: 1px solid black;">Logout</a>

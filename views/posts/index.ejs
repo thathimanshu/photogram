@@ -124,14 +124,16 @@
     </div>
     <div class="suggetion-4u-bar" style=" font-size: 14px;"><span style="color: rgba(0, 0, 0, 0.5);">Suggested for you</span> <a style="font-size: 12px; font-weight: 500;">See All</a></div>
     <div class="sugg-list">      
-        <% for(let i = 0;i<5;i++){ %>
+        <% for(let user of suggestionList){ %>
             <div class="user-info">
                 <div class="user-info-left">
                     <div class="pp2">
-                        <img class="pp2" src="https://cdn.mos.cms.futurecdn.net/39CUYMP8vJqHAYGVzUghBX-1200-80.jpg">
+                        <a href="/u/<%=user.username%>">
+                            <img class="pp2" src="<%=user.profilePicture%>">
+                        </a>
                     </div>
                     <div class="name">
-                        <div class="sugg-id"><a href="/">invisible strings</a></div>
+                        <div class="sugg-id"><a href="/u/<%=user.username%>"><%=user.username%></a></div>
                         <div class="sugg-line">Suggested for you</div>
                     </div>
                 </div>

@@ -1,16 +1,164 @@
 <% layout("/layouts/boilerplate")%>
 <style>
-    .userr{
-        height: 400px;
-        width: 400px;
+    .main{
         margin: 0 auto;
-        background-color: whitesmoke;
+        width: 80dvw;
+        height: auto;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .profile-data{
+        width: 70dvw;
+        display: flex;
+        padding: 25px 0;
+    }
+    .profile-pic{
+        height: 190px;
+        width: 190px;
+        object-fit: cover;
+        border-radius: 50%;
+        padding: 0.5rem;
+        border: 2px solid rgb(219, 219, 219);
+        margin: 0 25px;
+    }
+    .data-div{
+        width: 80%;
+        margin-left: 50px;
+    }
+    .line1{
+        width: 70%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .username,.message{
+        font-size: 24px;
+        font-weight: 300;
+        margin-right: 1rem;
+    }
+    .btn{
+        margin-right: 0.75rem;
+        background-color: rgb(239, 239, 239);
+        padding: 0.36rem 1.25rem;
+    }
+    .btn:hover{
+        background-color: rgb(219, 219, 219);
+    }
+    .follow-btn{
+        color: white;
+        font-weight: 500;
+        background-color: rgb(0, 149, 246);
+    }
+    .follow-btn:hover{
+        color: white;
+        background-color: rgb(24, 119, 242);
+    }
+    .wt500{
+        font-weight: 500;
     }
 
+    .line2{
+        margin-top: 1.25rem;
+        width: 70%;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+    .user-data{
+        display: flex;
+    }
+    .num-data{
+        font-weight: 500;
+        font-size: 18px;
+        margin-right: 0.25rem;
+    }
+    .ctgry{
+        font-weight: 300;
+        font-size: 18px;
+    }
+    .name-bio{
+        margin-top: 1.25rem;
+    }
+    .name{
+        font-weight: 500;
+    }
+    .bio{
+        font-size: 14px;
+    }
+    .posts-header{
+        width: calc(75dvw + 2px);
+        display: flex;
+        justify-content: space-around;
+        padding: 0 30%;
+        border-top: 1px solid rgba(0, 0, 0, 0.329);
+    }
+    .posts{
+        width: calc(75dvw + 2px);
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        column-gap: 1px;
+    }
+    .post{
+        height: 25dvw;
+        width: 25dvw;
+        object-fit: cover;
+    }
+    .post-header-op{
+        cursor: no-drop;
+        color: rgb(115, 115, 115);
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+    .post-header-op-dark{
+        cursor: pointer;
+        border-top: 1px solid rgb(0, 0, 0);
+        color: black;
+    }
 </style>
-<div class="userr">
-    <p><%=user.username%></p>
-    <p><%=user%></p>
-    <p></p>
-    <p></p>
+
+<div class="main">
+    <div class="profile-data">
+        <div >
+            <img class="profile-pic" src="<%=user.profilePicture%>">
+        </div>
+        <div class="data-div">
+            <div class="line1">
+                <div class="username"><%=user.username%></div>
+                <form method="POST" action="/follow">
+                    <button class="btn follow-btn">Follow</button>
+                </form>
+                <form method="POST" action="/follow">
+                    <button class="btn wt500">message</button>
+                </form>
+                <form method="POST" action="/follow">
+                    <button class="btn"><i class="fa-solid fa-user-plus"></i></button>
+                </form>
+                
+                <i class="fa-solid fa-ellipsis"></i>
+            </div>
+            <div class="line2">
+                <div class="user-data"><div class="num-data"><%=user.posts.length%></div> <div class="ctgry">posts</div></div>
+                <div class="user-data"><div class="num-data"><%=user.followers.length%></div> <div class="ctgry">followers</div></div>
+                <div class="user-data"><div class="num-data"><%=user.following.length%></div> <div class="ctgry">following</div></div>
+            </div>
+            <div class="name-bio">
+                <div class="name"><%=user.username %></div>
+                <div class="bio"><%- user.bio.replace(/\n/g, '<br>') %></div>
+            </div>
+        </div>
+    </div>
+    <div class="post-section">
+        <div class="posts-header">
+            <div class="post-header-op post-header-op-dark"><i class="fa-solid fa-table-cells"></i> POSTS</div>
+            <div class="post-header-op"><i class="fa-solid fa-clapperboard"></i> REELS</div>
+            <div class="post-header-op"><i class="fa-regular fa-id-badge"></i> TAGGED</div>
+        </div>
+        <div class="posts">
+            <% for(let post of user.posts) { %>
+                <img class="post" src=<%=post.imageUrl%> >
+            <%}%>
+        </div>
+    </div>
 </div>

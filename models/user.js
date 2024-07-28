@@ -9,6 +9,9 @@ const userSchema = new Schema({
         unique:true,
         required:true
     },
+    name:{
+        type:String,
+    },
     profilePicture:{
         type:String,
         default:"https://w7.pngwing.com/pngs/269/467/png-transparent-desktop-computer-font-placeholder-white-computer-computer-wallpaper-thumbnail.png"

@@ -2,16 +2,18 @@ const express = require('express');
 const router = express.Router({mergeParams:true});
 const wrapAsync = require('../utils/wrapAsync');
 const Post = require('../models/post');
+const User = require('../models/user');
 const {validatePost} = require('../middleware.js');
 const ExpressError = require('../utils/ExpressError');
 
 // index route
 router.get("/", async (req, res) => {
-    const allPosts = await Post.find({})
+    let allPosts = await Post.find({})
                                 .sort({ createdAt: -1 })
                                 .populate('user','username profilePicture');
-    console.log(allPosts[0]);
-    res.render("./posts/index.ejs", { posts: allPosts });
+
+    let suggestionList = await User.find({ username: { $ne: req.user.username } }).limit(5);
+    res.render("./posts/index.ejs", { posts: allPosts , suggestionList});
 });
 
 //new route
@@ -23,8 +25,14 @@ router.get("/new",(req,res)=>{
 router.post("/",validatePost,wrapAsync(async(req,res)=>{
     let postData = req.body.post;
     postData.user = req.user._id;
+    
     const newPost = new Post(postData);
     await newPost.save();
+
+    const user = await User.findById(req.user._id);
+    user.posts.push(newPost._id)
+    await user.save();
+
     req.flash('success','new Post created');
     res.redirect("/posts");
 }))

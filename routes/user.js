@@ -9,8 +9,8 @@ router.get("/signup",(req,res)=>{
 })
 router.post('/signup',wrapAsync(async (req,res)=>{
     try{
-        let {username,password,profilePicture} = req.body;
-        let newUser = new User({username,profilePicture});
+        let {username,password,profilePicture,bio} = req.body;
+        let newUser = new User({username,profilePicture,bio});
 
         let registeredUser = await User.register(newUser,password);
         req.login(registeredUser,(err)=>{
@@ -51,7 +51,7 @@ router.get('/accounts/edit',(req,res)=>{
 })
 router.get('/u/:username',isLoggedin,wrapAsync(async(req,res)=>{
     let {username} = req.params;
-    let user = await User.findOne({username:username});
+    let user = await User.findOne({username:username}).populate('posts');
     if(!user){
         req.flash("error","User doesnt exist");
         return res.redirect('/posts');
