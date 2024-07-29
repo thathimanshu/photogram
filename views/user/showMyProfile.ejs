@@ -37,30 +37,14 @@
         margin-right: 1rem;
     }
     .btn{
+        width: auto;
+        text-wrap: nowrap;
         margin-right: 0.75rem;
         background-color: rgb(239, 239, 239);
         padding: 0.36rem 1.25rem;
     }
     .btn:hover{
         background-color: rgb(219, 219, 219);
-    }
-    .follow-btn{
-        color: white;
-        font-weight: 500;
-        background-color: rgb(0, 149, 246);
-    }
-    .follow-btn:hover{
-        color: white;
-        background-color: rgb(24, 119, 242);
-    }
-    .unfollow-btn{
-        color: #b91c1c;
-        font-weight: 500;
-        background-color: #fef2f2;
-    }
-    .unfollow-btn:hover{
-        color: #b91c1c;
-        background-color: #fee2e2;
     }
     .wt500{
         font-weight: 500;
@@ -152,25 +136,15 @@
         <div class="data-div">
             <div class="line1">
                 <div class="username"><%=user.username%></div>
-                
-                <form id="followForm" method="POST" action='/follow/<%=user.username%>' style="display: <% if(!isFollowing) { %>block<% } else { %>none<% } %>;">
-                    <button type="submit" class="btn follow-btn">Follow</button>
-                </form>
-
-                
-                <form id="unfollowForm" method="POST" action='/unfollow/<%=user.username%>' style="display: <% if(isFollowing) { %>block<% } else { %>none<% } %>;">
-                    <button type="submit" class="btn unfollow-btn">Unfollow</button>
-                </form>
-
-                <form method="POST" action="/follow">
-                    <button class="btn wt500">message</button>
-                </form>
-                <button class="btn"><i class="fa-solid fa-user-plus"></i></button>
-                <i class="fa-solid fa-ellipsis"></i>
+                    <form method="POST" action='/edit'>
+                        <button class="btn wt500">Edit profile</button>
+                    </form>
+                    <button class="btn wt500">View archives</button>
+                <i class="fa-solid fa-gear"></i>
             </div>
             <div class="line2">
                 <div class="user-data"><div class="num-data"><%=user.posts.length%></div> <div class="ctgry">posts</div></div>
-                <div class="user-data"><div class="num-data" id="followersCount"><%=user.followers.length%></div> <div class="ctgry">followers</div></div>
+                <div class="user-data"><div class="num-data"><%=user.followers.length%></div> <div class="ctgry">followers</div></div>
                 <div class="user-data"><div class="num-data"><%=user.following.length%></div> <div class="ctgry">following</div></div>
             </div>
             <div class="name-bio">
@@ -199,22 +173,3 @@
         <% } %>
     </div>
 </div>
-
-<script src="/js/follow-unfollow.js"></script>
-<script>
-    function updateFollowers(inc) {
-        let followersDiv = document.getElementById('followersCount');
-        if (followersDiv) {
-            let num = parseInt(followersDiv.textContent, 10); 
-            num += inc; 
-            followersDiv.textContent = num; 
-        }
-    }
-    document.getElementById('followForm').addEventListener('click', function() {
-        updateFollowers(1); // Increment by 1
-    });
-
-    document.getElementById('unfollowForm').addEventListener('click', function() {
-        updateFollowers(-1); // Decrement by 1
-    });
-</script>

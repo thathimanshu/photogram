@@ -85,7 +85,26 @@
         font-size: 12px;
         color: #737373;
     }
-   
+    .follow-button{
+        border: none;
+        background-color: transparent;
+        color: #0095f6;
+    }
+    .follow-button, .switch a{
+        font-size: 14px;
+        border: none;
+        background-color: transparent;
+        color: #0095f6;
+    }
+    .unfollow-button{
+        font-size: 14px;
+        border: none;
+        background-color: transparent;
+        color: #b91c1c;
+    }
+    #unfollowForm{
+        display: none;
+    }
 </style>
 <div class="main">
     <div class="allposts offset-3">
@@ -93,13 +112,13 @@
             <div class="card">
                 <div class="card-top">
                     <div>
-                        <img class="pp card-img-top" src="<%=post.user.profilePicture%>">
+                        <img class="pp card-img-top" src="<%=post.user.profilePicture%>" loading="lazy">
                         <a class="username" href="/u/<%=post.user.username%>"><%=post.user.username%></a>
                     </div>
                         <i class="fa-solid fa-ellipsis-vertical"></i>
                 </div>
                 <a href="/posts/<%=post._id%>"><div class="img-container" >
-                    <img class="post-img" src="<%=post.imageUrl%>">
+                    <img class="post-img" src="<%=post.imageUrl%>" loading="lazy">
                 </div></a>
                 <div class="card-desc1">
                     <div class="mid-icons">
@@ -120,7 +139,7 @@
             </div>
             <div class="name">invisible strings</div>
         </div>
-        <div class="switch"><a href="/">switch</a></div>
+        <div class="switch"><a href="/login">switch</a></div>
     </div>
     <div class="suggetion-4u-bar" style=" font-size: 14px;"><span style="color: rgba(0, 0, 0, 0.5);">Suggested for you</span> <a style="font-size: 12px; font-weight: 500;">See All</a></div>
     <div class="sugg-list">      
@@ -130,17 +149,24 @@
                     <div class="pp2">
                         <a href="/u/<%=user.username%>">
                             <img class="pp2" src="<%=user.profilePicture%>">
-                        </a>
+                        </a>    
                     </div>
                     <div class="name">
                         <div class="sugg-id"><a href="/u/<%=user.username%>"><%=user.username%></a></div>
                         <div class="sugg-line">Suggested for you</div>
                     </div>
                 </div>
-                <div class="switch"><a href="/">follow</a></div>
+                <form id="followForm" method="POST" action='/follow/<%=user.username%>'>
+                    <button type="submit" class="follow-button">follow</button>
+                </form>
+                <form id="unfollowForm" method="POST" action='/unfollow/<%=user.username%>'>
+                    <button type="submit" class="unfollow-button">unfollow</button>
+                </form>
             </div>
         <%}%>
     </div>
 </div>
 
 </div>
+
+<script src="/js/follow-unfollow.js"></script>

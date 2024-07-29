@@ -11,7 +11,6 @@ router.get("/", async (req, res) => {
     let allPosts = await Post.find({})
                                 .sort({ createdAt: -1 })
                                 .populate('user','username profilePicture');
-
     let suggestionList = await User.find({ username: { $ne: req.user.username } }).limit(5);
     res.render("./posts/index.ejs", { posts: allPosts , suggestionList});
 });
