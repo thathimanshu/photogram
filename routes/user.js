@@ -49,6 +49,11 @@ router.get("/logout",wrapAsync(async (req,res)=>{
 router.get('/accounts/edit',(req,res)=>{
     res.render('user/edit.ejs');
 })
+router.post('/accounts/edit',wrapAsync(async(req,res)=>{
+    await User.findByIdAndUpdate(req.user._id,{...req.body.user});
+    req.flash('success',"Profile edited");
+    res.redirect('/accounts/edit');
+}))
 
 router.get('/u/:username',isLoggedin,wrapAsync(async(req,res)=>{
     let {username} = req.params;

@@ -1,5 +1,82 @@
-<% layout("/layouts/boilerplate")%>
-
+<% layout("/layouts/boilerplate") %>
+<style>
+    body {
+        background-color: #fafafa;
+    }
+    .main {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        width: 60dvw;
+        margin: 0 auto;
+        margin-top: 2.5rem;
+        background-color: #ffffff;
+        padding: 2rem 5rem;
+    }
+    .dp {
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-left: 5rem;
+    }
+    .pp-edit-text {
+        color: hsl(212, 100%, 43%);
+        font-size: 14px;
+    }
+    .profile-photo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 1rem;
+    }
+    label{
+        width: 100px;
+        text-align: right;
+        font-weight: 500;
+        font-size: 14px;
+    }
+    .input-div{
+        margin-bottom: 1rem ;
+    }
+    .input-div input{
+        margin-left: 2rem;
+        width: 250px;
+        border: 1px solid rgba(0, 0, 0, 0.5);
+    }
+    .edit-btn{
+        margin-left: 136px;
+        width: 170px;
+        background-color: #0095f6;
+        border: none;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+    }
+</style>
 <div class="main">
-    
+    <form method="POST" action="/accounts/edit">
+        <div class="profile-photo">
+            <div class="pp">
+                <img class="dp" src="<%= currUser.profilePicture %>" />
+            </div>
+            <div class="pp-edit">
+                <div class="username"><%= currUser.username %></div>
+                <p class="pp-edit-text">Change Profile Photo</p>
+            </div>
+        </div>
+        <div class="input-div">
+            <label for="name">Name</label>
+            <input id="name" name="user[name]" value="<%=currUser.name%>">
+        </div>
+        <div class="input-div">
+            <label for="username">Username</label>
+            <input id="username" name="user[username]" value="<%=currUser.username%>">
+        </div>
+        <div class="input-div">
+            <label for="bio">Bio</label>
+            <input id="bio" name="user[bio]" value="<%=currUser.bio%>">
+        </div>
+        <button class="edit-btn">Submit</button>
+    </form>
 </div>

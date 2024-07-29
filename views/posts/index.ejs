@@ -141,7 +141,9 @@
         </div>
         <div class="switch"><a href="/login">switch</a></div>
     </div>
+    <% if(suggestionList[0]){ %>
     <div class="suggetion-4u-bar" style=" font-size: 14px;"><span style="color: rgba(0, 0, 0, 0.5);">Suggested for you</span> <a style="font-size: 12px; font-weight: 500;">See All</a></div>
+    <% } %>
     <div class="sugg-list">      
         <% for(let user of suggestionList){ %>
             <div class="user-info">

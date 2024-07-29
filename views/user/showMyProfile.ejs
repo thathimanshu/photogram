@@ -136,7 +136,7 @@
         <div class="data-div">
             <div class="line1">
                 <div class="username"><%=user.username%></div>
-                    <form method="POST" action='/edit'>
+                    <form method="GET" action='/accounts/edit'>
                         <button class="btn wt500">Edit profile</button>
                     </form>
                     <button class="btn wt500">View archives</button>
@@ -148,7 +148,7 @@
                 <div class="user-data"><div class="num-data"><%=user.following.length%></div> <div class="ctgry">following</div></div>
             </div>
             <div class="name-bio">
-                <div class="name"><%=user.username %></div>
+                <div class="name"><%=user.name %></div>
                 <div class="bio"><%- user.bio.replace(/\n/g, '<br>') %></div>
             </div>
         </div>
