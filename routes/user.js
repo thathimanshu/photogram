@@ -9,8 +9,8 @@ router.get("/signup",(req,res)=>{
 })
 router.post('/signup',wrapAsync(async (req,res)=>{
     try{
-        let {username,password,profilePicture,bio} = req.body;
-        let newUser = new User({username,profilePicture,bio});
+        let {name,username,password,profilePicture,bio} = req.body;
+        let newUser = new User({name,username,profilePicture,bio});
 
         let registeredUser = await User.register(newUser,password);
         req.login(registeredUser,(err)=>{

@@ -105,7 +105,21 @@
     #unfollowForm{
         display: none;
     }
+    .add-dp{
+        background-color: #252525;
+        height: 25px;
+        width: 100%;
+        display: none; 
+        justify-content: center;
+        align-items: center;
+    }
+    .add-dp a{
+        color: white;
+    }
 </style>
+<div class="add-dp">
+    <a href="/accounts/edit">Hey there! Let's make your profile stand out. Click here to Upload a cool profile picture</a>
+</div>
 <div class="main">
     <div class="allposts offset-3">
         <% for(let post of posts) {%>
@@ -135,9 +149,9 @@
     <div class="user-info">
         <div class="user-info-left">
             <div class="pp2">
-                <img class="pp2" src="https://cdn.mos.cms.futurecdn.net/39CUYMP8vJqHAYGVzUghBX-1200-80.jpg">
+                <img class="pp2 currUser-pp" src=<%=currUser.profilePicture%>>
             </div>
-            <div class="name">invisible strings</div>
+            <div class="name"><%=currUser.username%></div>
         </div>
         <div class="switch"><a href="/login">switch</a></div>
     </div>
@@ -168,7 +182,14 @@
         <%}%>
     </div>
 </div>
-
 </div>
 
+<script>
+    let url = "https://i.pinimg.com/736x/18/b9/ff/18b9ffb2a8a791d50213a9d595c4dd52.jpg";
+    let currUser = document.querySelector('.currUser-pp');
+    if(currUser.src == url){
+        document.querySelector('.add-dp').style.display = 'flex';
+        document.querySelector('.suggestions').style.top = '110px';
+    }
+</script>
 <script src="/js/follow-unfollow.js"></script>

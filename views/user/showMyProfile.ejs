@@ -149,7 +149,9 @@
             </div>
             <div class="name-bio">
                 <div class="name"><%=user.name %></div>
-                <div class="bio"><%- user.bio.replace(/\n/g, '<br>') %></div>
+                <% if(user.bio){ %>
+                    <div class="bio"><%- user.bio.replace(/\n/g, '<br>') %></div>
+                <% } %>
             </div>
         </div>
     </div>

@@ -14,7 +14,7 @@ const userSchema = new Schema({
     },
     profilePicture:{
         type:String,
-        default:"https://w7.pngwing.com/pngs/269/467/png-transparent-desktop-computer-font-placeholder-white-computer-computer-wallpaper-thumbnail.png"
+        default:"https://i.pinimg.com/736x/18/b9/ff/18b9ffb2a8a791d50213a9d595c4dd52.jpg"
     },
     bio:{
         type:String,
