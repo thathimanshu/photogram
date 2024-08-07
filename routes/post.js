@@ -6,6 +6,36 @@ const User = require('../models/user');
 const {validatePost} = require('../middleware.js');
 const ExpressError = require('../utils/ExpressError');
 
+
+//like post
+router.post('/like/:id',wrapAsync(async(req,res)=>{
+    let {id} = req.params;
+    let post = await Post.findById(id);
+    post.likes = post.likes + 1;
+    await post.save();
+
+    let user = await User.findById(req.user._id);
+    user.liked.push(id);
+    user.save();
+    res.json({
+        action:"like"
+    });
+}))
+//unlike post
+router.post('/unlike/:id',wrapAsync(async(req,res)=>{
+    let {id} = req.params;
+    let post = await Post.findById(id);
+    post.likes = post.likes - 1;
+    await post.save();
+
+    let user = await User.findById(req.user._id);
+    user.liked.remove(id);
+    user.save();
+    res.json({
+        action:"unlike"
+    });
+}))
+
 // index route
 router.get("/", async (req, res) => {
     let allPosts = await Post.find({})
@@ -27,11 +57,10 @@ router.get("/new",(req,res)=>{
 router.post("/",validatePost,wrapAsync(async(req,res)=>{
     let postData = req.body.post;
     postData.user = req.user._id;
-    
     const newPost = new Post(postData);
     await newPost.save();
 
-    const user = await User.findById(req.user._id);
+    const user = await await User.findById(req.user._id);
     user.posts.push(newPost._id)
     await user.save();
 
@@ -68,5 +97,7 @@ router.delete("/:id",wrapAsync(async (req,res)=>{
     req.flash('success',"post deleted");
     res.redirect("/posts");
 }))
+
+
 
 module.exports = router;

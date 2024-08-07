@@ -36,6 +36,12 @@ const userSchema = new Schema({
             type:Schema.Types.ObjectId,
             ref:"Post"
         }
+    ],
+    liked:[
+        {
+            type:Schema.Types.ObjectId,
+            ref:"Post"
+        }
     ]
 });
 userSchema.plugin(passportLocalMongoose);

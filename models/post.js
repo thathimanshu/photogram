@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Comment = require('./comment');
-const { required } = require('joi');
+const { required, number } = require('joi');
 const postSchema = new Schema({
     user:{
         type:Schema.Types.ObjectId,
@@ -10,6 +10,10 @@ const postSchema = new Schema({
     },
     imageUrl:{
         type:String
+    },
+    likes:{
+        type:Number,
+        default:0
     },
     caption:{
         type:String
