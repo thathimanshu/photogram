@@ -16,7 +16,7 @@ router.post('/like/:id',wrapAsync(async(req,res)=>{
 
     let user = await User.findById(req.user._id);
     user.liked.push(id);
-    user.save();
+    await user.save();
     res.json({
         action:"like"
     });
@@ -30,7 +30,7 @@ router.post('/unlike/:id',wrapAsync(async(req,res)=>{
 
     let user = await User.findById(req.user._id);
     user.liked.remove(id);
-    user.save();
+    await user.save();
     res.json({
         action:"unlike"
     });
